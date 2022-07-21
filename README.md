@@ -8,4 +8,5 @@
   - product management
   - order tracking 
   - payment gataway included via credit card and paystack
-  
+  - cart processing 
+  - product reviews
