@@ -1,0 +1,60 @@
+.wrapper{
+    width: 90vw;
+    height: 60vh;
+    margin: 30px auto;
+    padding: 0;
+    background-color: inherit;
+}
+.formrow{
+    width: 50%;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: auto;
+}
+
+
+.formrow > input,.formrow > select{
+    height: 40px;
+    border: 1px solid lightgray;
+    background-color: white;
+    border-radius: 2px;
+    color: black;
+}
+
+.formrow > input:hover,.formrow > input:focus,.formrow > input:active{
+    border: 1px solid #00bcd4;
+}
+
+.formrow >textarea{
+    outline: none;
+    border: 1px solid lightgray;
+    height: 100px;
+    background-color: white;
+    font-family: 'Roboto', sans-serif;
+    color: grey;
+}
+.formrow >label{
+    font-family: 'Roboto', sans-serif;
+    color: grey;
+    font-size: 14px;
+    margin-bottom: 10px;
+
+}
+.formrow >label::first-letter{
+    text-transform: uppercase;
+}
+.wchild{
+    display: grid;
+    grid-template-columns: 50% auto;
+    grid-template-rows: auto;
+    background-color: white;
+    border-radius: 2px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.form{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
