@@ -1,7 +1,9 @@
 import { useState } from 'react'
-import style from '../styles/Table.module.css'
+import style from '../styles/Table.module.css';
+import Spinning from './Spinning';
 export default function Add() {
   const [cat, setCat] = useState('')
+  const [saving,setsaving] = useState(false);
   const [desc, setDesc] = useState('')
   const handleChange = (e, name) => {
     name(e.target.value)
@@ -34,9 +36,11 @@ export default function Add() {
       })
   }
 
-  return (
-    <div className={style.addproduct}>
-      <div className={style.formrow}>
+
+  const handlesaving = function() {
+    return (
+      <div>
+        <div className={style.formrow}>
         <label>category name</label>
         <input
           type="text"
@@ -63,6 +67,12 @@ export default function Add() {
           </button>
         </div>
       </div>
+      </div>
+    )
+  }
+  return (
+    <div className={style.addproduct}>
+      {saving ? <Spinning/> : handlesaving()}
     </div>
   )
 }

@@ -7,7 +7,7 @@ function ViewList() {
 
   const hasmounted = useRef(false)
 
-  useEffect(() => {
+  const getData = () => {
     axios
       .get('http://localhost:3000/api/categories')
       .then((res) => {
@@ -19,18 +19,42 @@ function ViewList() {
       .finally(() => {
         hasmounted.current = true
       })
+  }
+
+  useEffect(() => {
+    getData()
   }, [])
+
+  const handleEdit = (e) => {
+    e.preventDefault()
+    let id = e.target.getAttribute('edit-id')
+
+    axios(`http://localhost:3000/api/categories?id=${id}`)
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 
   const handleDelete = (e) => {
     e.preventDefault()
     let id = e.target.getAttribute('delete-id')
-    axios.delete(`http://localhost:3000/api/categories`,{
-      data: {
-        id,
-      }
-    }).then((res) => {
-      console.log(res)
-    }).catch ( (err) =>{console.log(err)})
+    axios
+      .delete(`http://localhost:3000/api/categories`, {
+        data: {
+          id,
+        },
+      })
+      .then((res) => {
+        let deleteditem = data.findIndex((item) => item.id === id)
+        data.splice(deleteditem)
+        getData()
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   return (
@@ -53,9 +77,16 @@ function ViewList() {
                     <td>{item.category}</td>
                     <td>{item.description}</td>
                     <td>
-                      <button className="btn btn-info">edit</button>
+                      <button
+                        className="btn btn-info"
+                        edit-id={item.id}
+                        onClick={(e) => handleEdit(e)}
+                      >
+                        edit
+                      </button>
                       <button
                         className="btn btn-danger"
+                        delete-id={item.id}
                         onClick={(e) => handleDelete(e)}
                       >
                         delete

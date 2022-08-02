@@ -1,7 +1,9 @@
 export default function Spinning () {
     return (
         <div className="spinner">
-            Spinning
+            <div className="bounce1">
+                <h1>Spinning</h1>
+            </div>
         </div>
     )
 }

@@ -28,7 +28,7 @@ function AddCategory() {
 
   return (
     <>
-      <div className={style.classModule}>
+      <div className={style.classModule} >
         <div className={style.card}>
           <div className={style.cardheader}>
             <div className={style.title}>{title}</div>
