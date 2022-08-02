@@ -9,13 +9,13 @@ category.addcategory = (category,description, response) => {
         response.status(500).send('Internal Server Error')
         throw err.message;
       }
-      response.status(200).send('Category added succesfully')
+      response.status(200).send({message: 'Category added succesfully',status:"SUCCESS"})
     })
   }
 }
 
 category.getcategories = (response) => {
-  let query = 'SELECT * FROM category'
+  let query = 'SELECT * FROM category';
   connection.query(query, (err, result) => {
     if (err) {
       throw err.message
@@ -38,7 +38,7 @@ category.deletecategories = (id, response) => {
 }
 
 export default function handler(req, res) {
-  const method = req.method
+  const method = req.method;
   switch (method) {
     case 'GET':
       category.getcategories(res)
