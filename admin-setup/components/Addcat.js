@@ -1,11 +1,8 @@
 import { useState } from 'react'
-import style from '../styles/Table.module.css';
-import Spinning from './Spinning';
-
+import style from '../styles/Table.module.css'
 export default function Add() {
   const [cat, setCat] = useState('')
-  const [desc, setDesc] = useState('');
-  const [saving,setSaving] = useState(false);
+  const [desc, setDesc] = useState('')
   const handleChange = (e, name) => {
     name(e.target.value)
   }
@@ -27,20 +24,19 @@ export default function Add() {
     savedata
       .then((res) => res.json())
       .then((data) => {
-         if (data.status = 'SUCCESS') {
+        if ((data.status = 'SUCCESS')) {
           setCat('')
           setDesc('')
-         }
+        }
       })
       .catch((err) => {
         console.log(err)
       })
   }
 
-  const HandleSaving = () => {
-    return (
-      <>
-        <div className={style.formrow}>
+  return (
+    <div className={style.addproduct}>
+      <div className={style.formrow}>
         <label>category name</label>
         <input
           type="text"
@@ -67,13 +63,6 @@ export default function Add() {
           </button>
         </div>
       </div>
-      </>
-    )
-  }
-
-  return (
-    <div className={style.addproduct}>
-       {saving ? <Spinning/> : <HandleSaving/>}
     </div>
   )
 }

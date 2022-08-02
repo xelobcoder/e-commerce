@@ -24,21 +24,15 @@ function ViewList() {
   const handleDelete = (e) => {
     e.preventDefault()
     let id = e.target.getAttribute('delete-id')
-    axios
-      .delete(`http://localhost:3000/api/categories`, {
-        data: {
-          id: id,
-        },
-      })
-      .then((res) => {
-        console.log(res)
-        let index = data.findIndex((item) => item.id === id)
-        data.splice(index)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+    axios.delete(`http://localhost:3000/api/categories`,{
+      data: {
+        id,
+      }
+    }).then((res) => {
+      console.log(res)
+    }).catch ( (err) =>{console.log(err)})
   }
+
   return (
     <div className={style.wrapper}>
       <table className={style.table} cellPadding="10px">
@@ -59,12 +53,9 @@ function ViewList() {
                     <td>{item.category}</td>
                     <td>{item.description}</td>
                     <td>
-                      <button className="btn btn-info" edit-id={item.id}>
-                        edit
-                      </button>
+                      <button className="btn btn-info">edit</button>
                       <button
                         className="btn btn-danger"
-                        delete-id={item.id}
                         onClick={(e) => handleDelete(e)}
                       >
                         delete
