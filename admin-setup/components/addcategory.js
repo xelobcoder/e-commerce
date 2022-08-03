@@ -34,7 +34,7 @@ function AddCategory() {
             <div className={style.title}>{title}</div>
             <div className={style.headerchild}>
               {addbtn ? (
-                <button onClick={(e) => addhandler(e)}>add category</button>
+                <button id='top-add-btn' onClick={(e) => addhandler(e)}>add category</button>
               ) : null}
               {viewbtn ? (
                 <button onClick={(e) => viewHandler(e)}>view categories</button>
@@ -42,7 +42,7 @@ function AddCategory() {
             </div>
           </div>
           <div className={style.cardbody}>
-            {add ? <Add id='main-add' /> : null}
+            {add ? <Add /> : null}
             {view ? <ViewList /> : null}
           </div>
         </div>

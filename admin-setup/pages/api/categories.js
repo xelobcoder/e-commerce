@@ -26,6 +26,19 @@ category.getcategories = (response) => {
   })
 }
 
+
+category.editcategory = (id,category,description,response) => {
+  if ((category != '') &  (id != '') & (description != '')) {
+    const query = 'UPDATE category SET category = ?, description = ? WHERE id = ?'
+    connection.query(query, [category, description, id], (err, result) => {
+      if (err) {
+        response.send({message: err.message})
+      }
+      response.status(200).send('Category updated succesfully')
+    })
+  }
+}
+
 category.deletecategories = (id, response) => {
   if (id != '') {
     const query = 'DELETE FROM category WHERE id = ?'
@@ -45,7 +58,7 @@ category.queryrun = (id, res) => {
     if (err) {
       throw err
     }
-    res.status(200).json(result)
+    res.status(200).json({status: 'SUCCESS', data: result})
   })
 }
 export default function handler(req, res) {
@@ -57,7 +70,6 @@ export default function handler(req, res) {
       } else {
         category.getcategories(res);
       }
-      category.getcategories(res)
       break
     case 'POST':
       category.addcategory(req.body.category, req.body.description, res)
@@ -65,7 +77,10 @@ export default function handler(req, res) {
     case 'DELETE':
       category.deletecategories(req.body.id, res)
       break
-    default:
+    case 'PUT':
+      category.editcategory(req.body.id, req.body.category, req.body.description, res)
+      break   
+      default:
       res.status(405).send('Method not allowed')
   }
 }

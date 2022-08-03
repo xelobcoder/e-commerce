@@ -1,84 +1,18 @@
 import { useState } from 'react'
 import style from '../styles/Table.module.css';
 import Spinning from './Spinning';
-import Error from './Error';
+import AddFormCategory from './AddCatForm';
+
+
 export default function Add() {
-  const [cat, setCat] = useState('')
-  const [saving,setsaving] = useState(false);
-  const [desc, setDesc] = useState('')
-  const [error, setError] = useState(false)
-
-  const handleChange = (e, name) => {
-    name(e.target.value)
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    let savedata = fetch('http://localhost:3000/api/categories', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify({
-        category: cat,
-        description: desc,
-      }),
-    })
-
-    savedata
-      .then((res) => res.json())
-      .then((data) => {
-        if ((data.status = 'SUCCESS')) {
-          setCat('')
-          setDesc('')
-        }
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }
-
-
-  const handlesaving = function() {
-    return (
-      <div>
-        <div> 
-           {error ? <Error/> : null}
-        </div>
-        <div className={style.formrow}>
-        <label>category name</label>
-        <input
-          type="text"
-          value={cat}
-          onChange={(e) => handleChange(e, setCat)}
-        ></input>
-      </div>
-      <div className={style.formrow}>
-        <label>description</label>
-        <textarea
-          value={desc}
-          type="text"
-          onChange={(e) => handleChange(e, setDesc)}
-        ></textarea>
-      </div>
-      <div className={style.formrow}>
-        <div>
-          <button
-            type="submit"
-            onClick={(e) => handleSubmit(e)}
-            className={style.btnflutter}
-          >
-            save
-          </button>
-        </div>
-      </div>
-      </div>
-    )
-  }
+ const [form,setForm] = useState(true);
+ const [saving,setSaving] = useState(false);
+  const [spinning,setSpinning] = useState(false);
   return (
-    <div className={style.addproduct}>
-      {saving ? <Spinning/> : handlesaving()}
-    </div>
+    <>
+      <div className={style.addproduct}>
+        {saving ? <Spinning/> : <AddFormCategory/>}
+      </div>
+    </>
   )
 }

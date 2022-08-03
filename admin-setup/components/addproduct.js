@@ -41,7 +41,15 @@ function AddProducts({ catdata }) {
     axios
       .post('http://localhost:3000/api/addproduct', { data })
       .then((res) => {
-        console.log(res.data)
+        const {insertId,status} = res.data;
+
+        if (status == 'SUCCESS' && insertId == null || '') {
+          axios.post('http://localhost:3000/api/image', { image, id: insertId })
+            .then((res) => {
+              console.log(res.data)
+            })
+            .catch((err) => {console.log(err)})
+        }
       })
       .catch((err) => {
         console.log(err)
