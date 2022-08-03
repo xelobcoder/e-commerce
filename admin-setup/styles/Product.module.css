@@ -10,8 +10,16 @@
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: auto;
+    /* visibility: hidden; */
 }
 
+#image-prewiew-off{
+  display:block !important;
+}
+
+#image-prewiew-on{
+  display:none !important;
+}
 
 .formrow > input,.formrow > select{
     height: 40px;

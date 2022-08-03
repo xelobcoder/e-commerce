@@ -1,10 +1,13 @@
 import { useState } from 'react'
 import style from '../styles/Table.module.css';
 import Spinning from './Spinning';
+import Error from './Error';
 export default function Add() {
   const [cat, setCat] = useState('')
   const [saving,setsaving] = useState(false);
   const [desc, setDesc] = useState('')
+  const [error, setError] = useState(false)
+
   const handleChange = (e, name) => {
     name(e.target.value)
   }
@@ -40,6 +43,9 @@ export default function Add() {
   const handlesaving = function() {
     return (
       <div>
+        <div> 
+           {error ? <Error/> : null}
+        </div>
         <div className={style.formrow}>
         <label>category name</label>
         <input

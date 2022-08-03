@@ -8,17 +8,11 @@ function ViewList() {
   const hasmounted = useRef(false)
 
   const getData = () => {
-    axios
-      .get('http://localhost:3000/api/categories')
-      .then((res) => {
-        setData(res.data)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-      .finally(() => {
-        hasmounted.current = true
-      })
+    let fetchdata = async function () {
+      let res = await axios.get('http://localhost:3000/api/categories')
+      setData(res.data)
+    }
+    fetchdata()
   }
 
   useEffect(() => {
@@ -26,6 +20,8 @@ function ViewList() {
   }, [])
 
   const handleEdit = (e) => {
+    const tine = document.getElementById('main-add')
+    console.log(tine)
     e.preventDefault()
     let id = e.target.getAttribute('edit-id')
 
@@ -42,11 +38,7 @@ function ViewList() {
     e.preventDefault()
     let id = e.target.getAttribute('delete-id')
     axios
-      .delete(`http://localhost:3000/api/categories`, {
-        data: {
-          id,
-        },
-      })
+      .delete(`http://localhost:3000/api/categories`, { data: { id } })
       .then((res) => {
         let deleteditem = data.findIndex((item) => item.id === id)
         data.splice(deleteditem)

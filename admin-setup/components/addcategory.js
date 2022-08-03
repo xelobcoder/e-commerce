@@ -42,7 +42,7 @@ function AddCategory() {
             </div>
           </div>
           <div className={style.cardbody}>
-            {add ? <Add /> : null}
+            {add ? <Add id='main-add' /> : null}
             {view ? <ViewList /> : null}
           </div>
         </div>
