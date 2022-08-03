@@ -1,4 +1,4 @@
-const mysql = require ('mysql');
+const mysql = require('mysql');
 
 
 const connection = mysql.createConnection({
@@ -10,9 +10,9 @@ const connection = mysql.createConnection({
 
 
 
-connection.connect( (err) => {
+connection.connect((err) => {
     if (err) throw err.message;
-    console.log('connnection to database succesfull');
+    else { console.log('connnection to database succesfull'); }
 })
 
 module.exports = connection;

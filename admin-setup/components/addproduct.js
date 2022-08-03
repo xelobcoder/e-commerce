@@ -11,7 +11,7 @@ function AddProducts({ catdata }) {
   const [category, setCategory] = useState('')
   const [image, setImage] = useState([])
   const [slug, setslug] = useState('')
-  const [quanity, setQuantity] = useState('')
+  const [quantity, setQuantity] = useState('')
   const [cat, setCat] = useState([])
   const [imageviewoff, setimageviewoff] = useState(true)
 
@@ -35,10 +35,11 @@ function AddProducts({ catdata }) {
   }
 
   const handleSubmit = (e) => {
-    let data = { name, price, description, category, image, slug, quanity }
     e.preventDefault()
+    let data = { name, price, description, category, slug, quantity }
+     console.log(data)
     axios
-      .post('http://localhost:3000/api/products', data)
+      .post('http://localhost:3000/api/addproduct', { data })
       .then((res) => {
         console.log(res.data)
       })
@@ -69,12 +70,7 @@ function AddProducts({ catdata }) {
       console.log(image)
     }, false);
 
-    let image = document.getElementById('imagePreview');
-    if (image) {
-      image.onClick = function () {
-        setimageviewoff(true);
-      }
-    }
+
 
   }
 
@@ -140,8 +136,7 @@ function AddProducts({ catdata }) {
                 type="number"
                 name="productprice"
                 value={price}
-                onChange={(e) => handleChange(e, setPrice)}
-              ></input>
+                onChange={(e) => handleChange(e, setPrice)}></input>
               <span>
                 <i className="bi bi-currency-dollar"></i>
               </span>
@@ -149,7 +144,7 @@ function AddProducts({ catdata }) {
             <div className={style.formrow}>
               <label>quantity</label>
               <input
-                className={quanity}
+                className={quantity}
                 onChange={(e) => handleChange(e, setQuantity)}
               />
             </div>

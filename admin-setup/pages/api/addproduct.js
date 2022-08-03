@@ -1,32 +1,8 @@
-import connection from './db'
+import connection from "./db"
 
 const products = {}
 
-products.addproduct = (
-  name,
-  category,
-  price,
-  quantity,
-  description,
-  image,
-  response,
-) => {
-  if ((name !== '') & (category != '') && (price != '') & (image != '')) {
-    const query =
-      'INSERT INTO products (name,category,price,quantity,description,image) VALUES (?,?,?,?,?,?)'
-    connection.query(
-      query,
-      [name, category, price, quantity, description, image],
-      (err, result) => {
-        if (err) {
-          response.status(500).send('Internal Server Error')
-          throw err.message
-        }
-        response.status(200).send('Product added succesfully')
-      },
-    )
-  }
-}
+
 
 products.deleteproducts = (id, response) => {
   if (id != '') {
@@ -54,31 +30,15 @@ products.getproducts = (response) => {
 }
 
 export default function handler(request, response) {
-  const method = request.method
+  const method = request.method;
 
   switch (method) {
     case 'GET':
       products.getproducts(response)
       break
     case 'POST':
-      const {
-        name,
-        category,
-        price,
-        quantity,
-        description,
-        image,
-      } = request.body
-
-      products.addproduct(
-        name,
-        category,
-        price,
-        quantity,
-        description,
-        image,
-        response,
-      )
+      console.log(request.body['name'])
+      break
     case 'DELETE':
       const { id } = request.body
       products.deleteproducts(id, response)
