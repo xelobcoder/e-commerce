@@ -32,7 +32,6 @@ export default function AddFormCategory() {
                 console.log(res.data)
             })
             .catch((err) => { console.log(err) })
-            console.log(cat,desc)
         }
     }
 

@@ -14,6 +14,7 @@ function AddProducts({ catdata }) {
   const [quantity, setQuantity] = useState('')
   const [cat, setCat] = useState([])
   const [imageviewoff, setimageviewoff] = useState(true)
+  const [insertId, setInsertId] = useState(0);
 
   const hasMounted = useRef()
   const handleChange = (e, name) => {
@@ -37,22 +38,33 @@ function AddProducts({ catdata }) {
   const handleSubmit = (e) => {
     e.preventDefault()
     let data = { name, price, description, category, slug, quantity }
-     console.log(data)
     axios
       .post('http://localhost:3000/api/addproduct', { data })
       .then((res) => {
-        const {insertId,status} = res.data;
+        const { status, insertid } = res.data;
 
-        if (status == 'SUCCESS' && insertId == null || '') {
-          axios.post('http://localhost:3000/api/image', { image, id: insertId })
-            .then((res) => {
-              console.log(res.data)
-            })
-            .catch((err) => {console.log(err)})
+        if (status == 'SUCCESS') {
+          // load product image 
+          const formData = new FormData();
+          let file = document.getElementById('fileopen').files[0];
+          formData.append('image', file);
+          formData.append('id', insertid);
+
+          fetch('http://localhost:3000/api/image', {
+            method: 'POST',
+            headers: {
+              'Accept' : 'application/json'
+            },
+            body: formData,
+          })
+            .then(res => res.json())
+            .then(res => {
+              console.log(res)
+            }).catch((err) => { console.log(err) })
         }
       })
       .catch((err) => {
-        console.log(err)
+        throw err;
       })
   }
 

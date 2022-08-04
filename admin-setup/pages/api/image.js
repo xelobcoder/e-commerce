@@ -8,7 +8,7 @@ const storage = multer.diskStorage({
         cb(null, './public/asserts/products')
     }
     , filename: (req, file, cb) => {
-        const uniqueSuffix = Date.now() +''+ Math.round(Math.random() * 1E9) + '' + path.extname(file.originalname);
+        const uniqueSuffix = Date.now() + '' + Math.round(Math.random() * 1E9) + '' + path.extname(file.originalname);
         cb(null, uniqueSuffix)
     }
 })
@@ -20,21 +20,26 @@ export const config = {
 }
 
 
-const productImage = multer({ storage: storage }).single('image'); 
+const productImage = multer({ storage: storage }).single('image');
 
-const product_image_fxn = function(req,res,filename) {
-    const {id} = req.body;
 
-    connection.query('INSERT INTO product_images (product_id,image) VALUES (?,?)', [id,filename], (err, result) => {
+const addImageDb = (request, response) => {
+    let query = 'INSERT INTO product_images (product_id, image) VALUES (?, ?)';
+
+    connection.query(query,[request.body.id, request.file.filename], (err, result) => {
         if (err) {
+            response.status(500).send('Internal Server Error')
             throw err.message
         }
-        res.status(200).send('Product image added succesfully')
+        response.status(200).send({
+            status: 'SUCCESS',
+            message: "Product image added succesfully",
+        })
     });
 }
 
-export default function handler (request,response){
-    switch(request.method) {
+export default function handler(request, response) {
+    switch (request.method) {
         case 'GET':
             connection.query('SELECT * FROM product_images', (err, result) => {
                 if (err) {
@@ -45,17 +50,14 @@ export default function handler (request,response){
             break;
         case 'POST':
             productImage(request, response, (err) => {
-                console.log(request.file);
-                if(err) { response.status(500).json({message:'error in processing image',file:''}) }
-                else {
-                    let filename = request.file.filename;
-                    config.api.bodyParser = true;
-                    product_image_fxn(request,response,filename);
+                if (err) {
+                    response.send(err.message)
                 }
+                addImageDb(request, response)
             })
             break;
         case 'PUT':
-            response.status(200).json({'message':'PUT request'})
+            response.status(200).json({ 'message': 'PUT request' })
         default:
             response.status(405).send('Method not allowed');
     }
