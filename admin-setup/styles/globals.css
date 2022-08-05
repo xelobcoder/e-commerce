@@ -5,57 +5,107 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
 
-* {
-  box-sizing: border-box;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
-}
-
-.top-panel-side {
+.top-panel-side{
   margin: 0;
   padding: 0;
+  width: 100vw;
+}
+
+.top-panel-side > .menu-icon {
+display: none;
 }
 
 .top-panel-side > ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
   display: flex;
-  flex-direction: row;
-  justify-content:flex-end;
+  justify-content: flex-end;
   align-items: center;
+}
+
+.top-panel-side > ul > li{
   color: white;
-}
-
-.top-panel-side > ul > li {
-  padding: 10px 50px;
-  text-align: center;
-  margin-top: 10px;
-}
-
-.top-panel-side > ul > li:focus,.top-panel-side > ul > li:hover,.top-panel-side > ul > li:active {
-  color: rgba(255, 255, 255, 0.589);
-  cursor: pointer;  
+  list-style: none;
+  padding: 0px 30px;
+  cursor: pointer;
 }
 
 .top-panel-side > ul > li::first-letter{
-  text-transform: uppercase;
-}
-input{
-  background-color: green;
+  text-transform: uppercase !important;
 }
 
+
+
+
+
+@media screen and (max-width: 480px) {
+  .menu-icon {
+    display: block;
+  }
+  .top-panel-side{
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+  }
+
+  .top-panel-side > .menu-icon {
+    margin: 0px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 10px;   
+  }
+ 
+  .top-panel-side >.menu-icon > i {
+    font-size: 40px;
+    color: white;
+  }
+
+  .top-panel-side >.menu-icon > i:active,
+  .top-panel-side >.menu-icon > i:focus,
+  .top-panel-side >.menu-icon > i:hover {
+    color: black;
+  }
+
+  .top-panel-side > ul {
+    position: absolute;
+    top: 10vh;
+    left: 0;
+    right: 0;
+    background-color: whitesmoke;
+    display: block;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .top-panel-side > ul > li{
+    padding: 40px 10px;
+    color: black;
+    background-color: violet;
+    font-size: 21px;
+    font-weight: 300;
+  }
+
+  .top-panel-side > ul > li > i {
+    margin-right: 10px;
+  }
+
+  .top-panel-side > ul > li > i {
+    font-size: 20px;
+    color: lightgray;
+  }
+  .top-panel-side > ul > li:active,
+  .top-panel-side > ul > li:focus,
+  .top-panel-side > ul > li:hover {
+    background-color: white;
+    color: grey;
+    transition: 100ms ease-in-out;
+    transition-duration: 200ms;
+  }
+  .top-panel-side > ul > li:active > i,
+  .top-panel-side > ul > li:focus > i,
+  .top-panel-side > ul > li:hover > i {
+    color: black;
+  }
+}

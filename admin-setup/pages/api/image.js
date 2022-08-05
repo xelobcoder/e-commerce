@@ -26,7 +26,7 @@ const productImage = multer({ storage: storage }).single('image');
 const addImageDb = (request, response) => {
     let query = 'INSERT INTO product_images (product_id, image) VALUES (?, ?)';
 
-    connection.query(query,[request.body.id, request.file.filename], (err, result) => {
+    connection.query(query, [request.body.id, request.file.filename], (err, result) => {
         if (err) {
             response.status(500).send('Internal Server Error')
             throw err.message
