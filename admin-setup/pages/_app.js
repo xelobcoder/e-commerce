@@ -1,9 +1,13 @@
 import '../styles/globals.css';
 import '../node_modules/bootstrap-icons/font/bootstrap-icons.css';
+import { ChakraProvider } from '@chakra-ui/react'
 
 function MyApp({ Component, pageProps }) {
   return (
-      <Component {...pageProps} />
+    <ChakraProvider>
+       <Component {...pageProps} />
+    </ChakraProvider>
+     
   )
 }
 

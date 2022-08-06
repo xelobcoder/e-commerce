@@ -2,7 +2,7 @@ import style from '../styles/Table.module.css'
 import { useState } from 'react'
 import Add from './Addcat';
 import ViewList from './viewCat';
-
+import {Button} from '@chakra-ui/react'
 function AddCategory() {
   const [add, setAdd] = useState(false)
   const [view, setView] = useState(true)
@@ -27,27 +27,23 @@ function AddCategory() {
   }
 
   return (
-    <>
-      <div className={style.classModule} >
-        <div className={style.card}>
-          <div className={style.cardheader}>
-            <div className={style.title}>{title}</div>
-            <div className={style.headerchild}>
-              {addbtn ? (
-                <button id='top-add-btn' onClick={(e) => addhandler(e)}>add category</button>
-              ) : null}
-              {viewbtn ? (
-                <button onClick={(e) => viewHandler(e)}>view categories</button>
-              ) : null}
-            </div>
-          </div>
-          <div className={style.cardbody}>
-            {add ? <Add /> : null}
-            {view ? <ViewList /> : null}
-          </div>
-        </div>
+    <div className={style.category_wrapper}>
+      <div>
+        {
+          addbtn ? (
+            <Button id='top-add-btn' colorScheme='teal' size='md' onClick={(e) => addhandler(e)}>add category</Button>
+          ) : null}
+        {viewbtn ? (
+          <Button colorScheme='teal' onClick={(e) => viewHandler(e)}>view categories</Button>
+        ) : null}
+
       </div>
-    </>
+      <div className={style.cardbody}>
+        {add ? <Add /> : null}
+        {view ? <ViewList /> : null}
+      </div>
+
+    </div>
   )
 }
 

@@ -10,7 +10,7 @@ import Settings from '../components/Settings';
 import { useState } from 'react';
 
 export default function Home() {
-  const [menu, setMenu] = useState(true);
+  const [menu, setMenu] = useState(false);
 
   const hideandshow = (ev, target) => {
     let all = document.querySelectorAll('.main-section')
@@ -29,23 +29,23 @@ export default function Home() {
       <div className={style.container}>
         <div className={style.sidebar}>
           <div className="top-panel-side">
-            <div className='menu-icon' onClick={(e) => menuHandler(e)}><i class="bi bi-list"></i></div>
+            <div className='menu-icon' onClick={(e) => menuHandler(e)}><i className="bi bi-list"></i></div>
             {
               menu == false ? null : (
                 <ul>
                   <li onClick={(e) => hideandshow(e, '#addproduct')}>
-                    <i class="bi bi-bag-check-fill"></i> Add products
+                    <i className="bi bi-bag-check-fill"></i> Add products
                   </li>
                   <li onClick={(e) => hideandshow(e, '#productlist')}>
-                    <i class="bi bi-card-checklist"></i> Product list
+                    <i className="bi bi-card-checklist"></i> Product list
                   </li>
                   <li onClick={(e) => hideandshow(e, '#addcategory')}>
-                    <i class="bi bi-bookmark"></i> Category
+                    <i className="bi bi-bookmark"></i> Category
                   </li>
                   <li onClick={(e) => hideandshow(e, '#addblog')}>
-                    <i class="bi bi-newspaper"></i> Blog</li>
+                    <i className="bi bi-newspaper"></i> Blog</li>
                   <li onClick={(e) => hideandshow(e, '#addsettings')}>
-                    <i class="bi bi-gear"></i> Settings
+                    <i className="bi bi-gear"></i> Settings
                   </li>
                 </ul>
               )

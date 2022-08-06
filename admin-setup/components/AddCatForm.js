@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from 'axios';
 import style from "../styles/Table.module.css";
 import Error from './Error';
+import { Button, Input, Textarea } from '@chakra-ui/react';
+
 export default function AddFormCategory() {
     const [cat, setCat] = useState('')
     const [desc, setDesc] = useState('');
     const [error, setError] = useState('');
+
 
     const handleChange = (e, name) => { name(e.target.value) }
     const handleSubmit = (e) => {
@@ -14,24 +17,26 @@ export default function AddFormCategory() {
         let editmode = mode.getAttribute('editmode');
         let id = mode.getAttribute('editmode-id');
 
-        if(editmode == 'false' && id == '0') {
+        if (editmode == 'false' && id == '0') {
             axios
-            .post('http://localhost:3000/api/categories', { category: cat, description: desc })
-            .then(res => {
-                setCat('');
-                setDesc('');
-                setError('');
-            })
-            .catch((err) => { console.log(err) })
+                .post('http://localhost:3000/api/categories', { category: cat, description: desc })
+                .then(res => {
+                    document.getElementById('form').reset();
+                })
+                .catch((err) => { console.log(err) })
         } else {
-            setCat(document.getElementById('category-input').value);
-            setDesc(document.getElementById('description-input').value);
+           setCat(document.getElementById('category-input').value);
+           setDesc(document.getElementById('description-input').value);
             axios
-            .put(`http://localhost:3000/api/categories`, { id,category: cat, description: desc })
-            .then(res => {
-                console.log(res.data)
-            })
-            .catch((err) => { console.log(err) })
+                .put(`http://localhost:3000/api/categories`, { id, category: cat, description: desc })
+                .then(res => {
+                    console.log(res.data)
+                    document.getElementById('form').reset();
+                    document.getElementById("category-input").disabled = false;
+                    document.getElementById('catformwrapper').setAttribute('editmode', 'false');
+                    document.getElementById('catformwrapper').setAttribute('editmode-id', '0');
+                })
+                .catch((err) => { console.log(err) })
         }
     }
 
@@ -40,17 +45,19 @@ export default function AddFormCategory() {
             <div>
                 {error ? <Error /> : null}
             </div>
-            <div className={style.formrow}>
-                <label>category title</label>
-                <input id="category-input" value={cat} onChange={(e) => handleChange(e, setCat)} type='text' />
-            </div>
-            <div className={style.formrow}>
-                <label>description</label>
-                <textarea id="description-input" value={desc} onChange={(e) => handleChange(e, setDesc)} type='text' />
-            </div>
-            <div className={style.formrow} >
-                <button className={style.btnflutter} style={{ padding: '15px', fontSize: '20px' }} onClick={(e) => handleSubmit(e)} type='submit'>save</button>
-            </div>
+            <form id="form">
+                <div >
+                    <label>category title</label>
+                    <Input id="category-input"  onChange={(e) => handleChange(e, setCat)} type='text' />
+                </div>
+                <div >
+                    <label>description</label>
+                    <Textarea id="description-input" onChange={(e) => handleChange(e, setDesc)} type='text' />
+                </div>
+                <div  >
+                    <Button colorScheme='blue' variant="solid" onClick={(e) => handleSubmit(e)} type='submit' >Save</Button>
+                </div>
+            </form>
         </div>
     )
 }

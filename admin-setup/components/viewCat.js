@@ -1,6 +1,18 @@
 import style from '../styles/Table.module.css'
 import axios from 'axios'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect } from 'react';
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+} from '@chakra-ui/react';
+import { Button, ButtonGroup } from '@chakra-ui/react'
 
 function ViewList() {
   const [data, setData] = useState([])
@@ -23,14 +35,16 @@ function ViewList() {
   // prefills the form with the data from the database 
   // for editing the category
 
-  const prefill = (oobject = {}) =>{
-    const {id, category, description} = oobject;
+  const prefill = (oobject = {}) => {
+    const { id, category, description } = oobject;
     setTimeout(() => {
       document.getElementById('category-input').value = category;
       document.getElementById('description-input').value = description;
       let editmode = document.getElementById('catformwrapper');
       editmode.setAttribute('editmode', 'true');
       editmode.setAttribute('editmode-id', id);
+      // document.getElementById('category-input').disabled = true;
+
       console.log(editmode)
     }, 100);
   }
@@ -43,11 +57,11 @@ function ViewList() {
 
     axios(`http://localhost:3000/api/categories?id=${id}`)
       .then((res) => {
-        const {status, data} = res.data;
+        const { status, data } = res.data;
         if (status == 'SUCCESS') {
-            document.getElementById('top-add-btn').click();
-           prefill(data[0]);
-          }
+          document.getElementById('top-add-btn').click();
+          prefill(data[0]);
+        }
       })
       .catch((err) => {
         console.log(err)
@@ -70,38 +84,40 @@ function ViewList() {
   }
 
   return (
-    <div className={style.wrapper}>
-      <table className={style.table} cellPadding="10px">
-        <thead className={style.thead}>
-          <tr>
-            <th>#</th>
-            <th>category</th>
-            <th>description</th>
-            <th>actions</th>
-          </tr>
-        </thead>
+    <div >
+      <Table size='sm' variant='simple' colorScheme='teal' cellPadding="10px" >
+        <Thead >
+          <Tr>
+            <Th>#</Th>
+            <Th>category</Th>
+            <Th>description</Th>
+            <Th>actions</Th>
+          </Tr>
+        </Thead>
         <tbody>
           {data.length > 0
             ? data.map((item, index) => {
-                return (
-                  <tr key={index} data-id={item.id}>
-                    <td>{item.id}</td>
-                    <td>{item.category}</td>
-                    <td>{item.description}</td>
-                    <td>
-                      <button className="btn btn-info" edit-id={item.id} onClick={(e) => handleEdit(e)}>
+              return (
+                <Tr key={index} data-id={item.id}>
+                  <Td>{item.id}</Td>
+                  <Td>{item.category}</Td>
+                  <Td>{item.description}</Td>
+                  <Td>
+                    <ButtonGroup gap={4}>
+                      <Button size="sm" variant="solid" type='button' colorScheme='green' edit-id={item.id} onClick={(e) => handleEdit(e)}>
                         edit
-                      </button>
-                      <button className="btn btn-danger" delete-id={item.id} onClick={(e) => handleDelete(e)}>
+                      </Button>
+                      <Button size="sm" variant="solid" type='button' colorScheme='red' delete-id={item.id} onClick={(e) => handleDelete(e)}>
                         delete
-                      </button>
-                    </td>
-                  </tr>
-                )
-              })
+                      </Button>
+                    </ButtonGroup>
+                  </Td>
+                </Tr>
+              )
+            })
             : null}
         </tbody>
-      </table>
+      </Table>
     </div>
   )
 }

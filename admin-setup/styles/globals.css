@@ -1,7 +1,15 @@
+*{
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&family=Roboto:wght@300;400&display=swap');
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
+  /* font-family: 'Roboto', sans-serif; */
+  background-color: #fff;
+  
+  font-family: 'Open Sans', sans-serif;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -10,10 +18,11 @@ body {
   margin: 0;
   padding: 0;
   width: 100vw;
+
 }
 
 .top-panel-side > .menu-icon {
-display: none;
+ display: none;
 }
 
 .top-panel-side > ul {
@@ -46,6 +55,7 @@ display: none;
     width: 100vw;
     margin: 0;
     padding: 0;
+    z-index: 9999;
   }
 
   .top-panel-side > .menu-icon {
@@ -53,12 +63,15 @@ display: none;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding-top: 10px;   
+    padding-top: 10px;  
+    padding-left: 10px; 
+    z-index: 9998;
   }
  
   .top-panel-side >.menu-icon > i {
     font-size: 40px;
     color: white;
+    padding-left: 10px;
   }
 
   .top-panel-side >.menu-icon > i:active,
@@ -89,6 +102,7 @@ display: none;
 
   .top-panel-side > ul > li > i {
     margin-right: 10px;
+    padding-left: 20px;
   }
 
   .top-panel-side > ul > li > i {
@@ -108,4 +122,36 @@ display: none;
   .top-panel-side > ul > li:hover > i {
     color: black;
   }
+}
+
+Button {
+  border-radius: 0px !important;
+  margin-top: 10px !important;
+}
+
+Button::first-letter{
+  text-transform: uppercase;
+}
+
+Input,Textarea{
+  border-radius: 0px !important;
+  margin-top: 10px !important;
+  color: grey;
+  border: 1px solid darkgrey !important;
+}
+
+label {
+  font-weight: 400;
+  font-size: 18px;
+  color: #333;
+}
+
+label::first-letter{
+  text-transform: uppercase;
+}
+
+Table {
+  overflow-x: auto;
+  overflow-y: auto;
+  height: 50vh;
 }
