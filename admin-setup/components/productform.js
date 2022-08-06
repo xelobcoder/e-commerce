@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 
-function AddProducts({ catdata }) {
+function ProductForm({ catdata }) {
   const [name, setName] = useState('')
   const [price, setPrice] = useState('')
   const [description, setDescription] = useState('')
@@ -209,4 +209,4 @@ function AddProducts({ catdata }) {
   )
 }
 
-export default AddProducts
+export default ProductForm;

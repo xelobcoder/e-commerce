@@ -4,14 +4,15 @@ import Spinning from './Spinning';
 import AddFormCategory from './AddCatForm';
 
 
-export default function Add() {
+export default function Add(props) {
  const [form,setForm] = useState(true);
  const [saving,setSaving] = useState(false);
-  const [spinning,setSpinning] = useState(false);
-  return (
+ const [spinning,setSpinning] = useState(false);
+ console.log(typeof props.editstate)
+   return (
     <>
       <div className={style.addproduct}>
-        {saving ? <Spinning/> : <AddFormCategory/>}
+        <AddFormCategory editstate={props.editstate} editid={props.editid} />
       </div>
     </>
   )

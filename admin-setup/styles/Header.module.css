@@ -1,0 +1,24 @@
+.hp{
+    background-color: blueviolet;
+}
+.hp > ul {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    list-style: none;
+}
+
+.hp > ul > li {
+    padding: 15px 20px;
+    color: white;
+    font-weight: 400;
+}
+.hp > ul > li > i {
+    margin-right: 10px;
+}
+
+.hp > ul > li:hover,
+.hp > ul > li.active {
+    cursor: pointer;
+    background-color: #00bcd4;
+}

@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 import { Button, ButtonGroup } from '@chakra-ui/react'
 
-function ViewList() {
+function ViewList(props) {
   const [data, setData] = useState([])
 
   const hasmounted = useRef(false)
@@ -31,42 +31,6 @@ function ViewList() {
     getData()
   }, [])
 
-
-  // prefills the form with the data from the database 
-  // for editing the category
-
-  const prefill = (oobject = {}) => {
-    const { id, category, description } = oobject;
-    setTimeout(() => {
-      document.getElementById('category-input').value = category;
-      document.getElementById('description-input').value = description;
-      let editmode = document.getElementById('catformwrapper');
-      editmode.setAttribute('editmode', 'true');
-      editmode.setAttribute('editmode-id', id);
-      // document.getElementById('category-input').disabled = true;
-
-      console.log(editmode)
-    }, 100);
-  }
-
-  const handleEdit = (e) => {
-    const tine = document.getElementById('main-add')
-    console.log(tine)
-    e.preventDefault()
-    let id = e.target.getAttribute('edit-id')
-
-    axios(`http://localhost:3000/api/categories?id=${id}`)
-      .then((res) => {
-        const { status, data } = res.data;
-        if (status == 'SUCCESS') {
-          document.getElementById('top-add-btn').click();
-          prefill(data[0]);
-        }
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }
 
   const handleDelete = (e) => {
     e.preventDefault()
@@ -85,7 +49,7 @@ function ViewList() {
 
   return (
     <div >
-      <Table size='sm' variant='simple' colorScheme='teal' cellPadding="10px" >
+      <Table cellPadding="5px" style={{ height: '50vh', overflowX: 'auto', overflowY: 'auto' }} >
         <Thead >
           <Tr>
             <Th>#</Th>
@@ -99,12 +63,12 @@ function ViewList() {
             ? data.map((item, index) => {
               return (
                 <Tr key={index} data-id={item.id}>
-                  <Td>{item.id}</Td>
+                  <Td>{index + 1}</Td>
                   <Td>{item.category}</Td>
                   <Td>{item.description}</Td>
                   <Td>
                     <ButtonGroup gap={4}>
-                      <Button size="sm" variant="solid" type='button' colorScheme='green' edit-id={item.id} onClick={(e) => handleEdit(e)}>
+                      <Button size="sm" variant="solid" type='button' colorScheme='green' edit-id={item.id} onClick={(e) => props.handleEdit(e)}>
                         edit
                       </Button>
                       <Button size="sm" variant="solid" type='button' colorScheme='red' delete-id={item.id} onClick={(e) => handleDelete(e)}>
