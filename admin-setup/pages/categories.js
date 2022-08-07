@@ -19,15 +19,15 @@ export default function Categories() {
         <div style={{ marginLeft: '10vw', marginRight: '10vw' }}>
             <Tabs>
                 <TabList>
-                    <Tab className='add'>Add</Tab>
                     <Tab className='view'>view</Tab>
+                    <Tab className='add'>Add</Tab>
                 </TabList>
                 <TabPanels>
                     <TabPanel>
-                        <Add editstate={editstate} editid={editid}  edit/>
+                        <ViewList handleEdit={(e) => editcategory(e)} />
                     </TabPanel>
                     <TabPanel>
-                        <ViewList handleEdit={(e) => editcategory(e)} />
+                        <Add editstate={editstate} editid={editid}  edit/>
                     </TabPanel>
                 </TabPanels>
             </Tabs>

@@ -1,0 +1,29 @@
+.filtergroup {
+    margin: 1% 5% 1% 5%;
+    display: grid;
+    grid-template-columns: 30% 30% 30%;
+    grid-gap: 2% 2%;
+
+}
+.card {
+    border: 1px solid #ccc;
+    height: 300px;
+    width: 300px;
+    margin-bottom: 20px;
+}
+.header{
+    margin: 0;
+    padding: 0;
+    height: 50%;
+    border-bottom: 1px solid lightgray !important;
+}
+
+.body{
+    margin: 0;
+    padding: 0;
+}
+.product{
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+    margin: 1% 5% 1% 5%;
+}

@@ -8,7 +8,7 @@ export default function Add(props) {
  const [form,setForm] = useState(true);
  const [saving,setSaving] = useState(false);
  const [spinning,setSpinning] = useState(false);
- console.log(typeof props.editstate)
+ console.log(props)
    return (
     <>
       <div className={style.addproduct}>

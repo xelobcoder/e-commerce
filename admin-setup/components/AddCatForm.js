@@ -14,15 +14,12 @@ export default function AddFormCategory(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (props.editstate == true) {
-            let category = document.createElement('category-input').value;
-            let description = document.createElement('description-input').value;
+            let category = document.getElementById('category-input').value;
+            let description = document.getElementById('description-input').value;
             axios.put('http://localhost:3000/api/categories', { id: props.editid, category, description })
                 .then(res => { return res.data })
-                .then(data => { console.log(data) })
+                .then(data => { document.getElementById('form').reset(); })
                 .catch((err) => { console.log(data) })
-                .finally((res) => {
-                    document.getElementById('form').reset();
-                })
         } else {
             axios.post('http://localhost:3000/api/categories', { category: cat, description: desc })
                 .then(res => { return res.data })

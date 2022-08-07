@@ -1,25 +1,71 @@
-function ProductList (props) {
-  const {cat} = props;
-  console.log(cat);
-  return(
+import { useState, useEffect } from 'react';
+import style from '../styles/Productlist.module.css';
+import axios from 'axios';
+import { Input, Box, Image, Flex, Stack, Button, Table, Modal, message } from '@chakra-ui/react';
+
+
+
+const Card = () => {return (<div className={style.card}></div>)}
+const Header = () => {return (<div className={style.header}></div>)}
+const Body = () => {return (<div className={style.body}></div>)}
+
+
+const Products = ({products}) => {
+  return (
+    <div >
+      <div className={style.product}>
+          {
+            products.map( (product,index) => {
+               return(
+                <Card key={index}>
+                  <Header>
+                     <Image/>
+                  </Header>
+                  <Body>
+                    {product.description}
+                  </Body>
+                </Card>
+               )
+            })
+          }
+      </div>
+    </div>
+  )
+}
+
+
+export default function ProductCategoryList(props) {
+  console.log(props);
+  const Filters = (props) => {
+    return (
+      <>
+        <div className={style.filtergroup}>
+          <Input placeholder='category' size='md' />
+          <Input placeholder='product name' size='md' />
+          <Input placeholder='' size='md' />
+        </div>
+        <hr></hr>
+      </>
+    )
+  }
+
+ 
+  return (
     <>
-      <h2>classic name items</h2>
+      <Filters />
+      <Products products={props.products}/>
     </>
   )
 }
 
 
-export default ProductList;
-
-
-
 
 export async function getServerSideProps(context) {
-  let getcat = await fetch('http://localhost:3000/api/categories')
-  let cat = await getcat.json()
-  return{
+  let api = await axios.get('http://localhost:3000/api/addproduct')
+  let products = api.data;
+  return {
     props: {
-      cat
+      products:products.slice(0,20)
     }
   }
 }

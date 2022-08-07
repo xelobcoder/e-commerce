@@ -28,7 +28,11 @@ function ViewList(props) {
   }
 
   useEffect(() => {
-    getData()
+    hasmounted.current = true
+
+    if (hasmounted.current) {
+      getData()
+    }
   }, [])
 
 
@@ -48,7 +52,7 @@ function ViewList(props) {
   }
 
   return (
-    <div >
+    <div>
       <Table cellPadding="5px" style={{ height: '50vh', overflowX: 'auto', overflowY: 'auto' }} >
         <Thead >
           <Tr>

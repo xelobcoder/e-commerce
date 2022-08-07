@@ -1,6 +1,9 @@
 import multer from 'multer';
 import path from 'path';
 import connection from './db';
+import fs from 'fs';
+import stream from 'stream';
+
 
 
 const storage = multer.diskStorage({
@@ -38,15 +41,27 @@ const addImageDb = (request, response) => {
     });
 }
 
+
+const getImage = (request, response) => {
+    let query = request.query;
+    if (Object.keys(query) == 0) {
+        connection.query('SELECT * FROM product_images', (err, result) => {
+            if (err) {
+                response.status(405).send('Internal Server Error');
+                throw err;
+            }
+            response.status(200).send(result);
+        })
+    } else {
+        let id = request.query.id;
+        let imagePath = path.join('C:/Users/leonides/Desktop/payswitch/admin-setup/public/asserts/products', id);
+        fs.createReadStream(imagePath).pipe(response);
+    }
+}
 export default function handler(request, response) {
     switch (request.method) {
         case 'GET':
-            connection.query('SELECT * FROM product_images', (err, result) => {
-                if (err) {
-                    throw err.message
-                }
-                response.status(200).send(result)
-            })
+            getImage(request, response);
             break;
         case 'POST':
             productImage(request, response, (err) => {
