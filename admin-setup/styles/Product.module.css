@@ -30,6 +30,7 @@
     background-color: white;
     border-radius: 2px;
     color: black !important;
+    padding-left: 20px;
 }
 
 .formrow > input:hover,.formrow > input:focus,.formrow > input:active{
@@ -43,6 +44,7 @@
     background-color: white;
     font-family: 'Roboto', sans-serif;
     color: grey;
+    padding-left: 20px;
 }
 .formrow >label{
     font-family: 'Roboto', sans-serif;

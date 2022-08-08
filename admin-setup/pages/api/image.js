@@ -54,8 +54,22 @@ const getImage = (request, response) => {
         })
     } else {
         let id = request.query.id;
-        let imagePath = path.join('C:/Users/leonides/Desktop/payswitch/admin-setup/public/asserts/products', id);
-        fs.createReadStream(imagePath).pipe(response);
+
+        connection.query('SELECT * FROM product_images WHERE product_id = ?', [id], (err, result) => {
+            if (err) {
+                throw err;
+            }
+
+            if (result) {
+                if (result.length > 1 || result.length < 1) {
+                    response.status(200).send({ message: "No image or More image seen with unique id" })
+                } else {
+                    let image = result[0]['image'];
+                    let imagePath = path.join('C:/Users/leonides/Desktop/payswitch/admin-setup', '/public/asserts/products/' + image);
+                    fs.createReadStream(imagePath).pipe(response);
+                }
+            }
+        })
     }
 }
 export default function handler(request, response) {

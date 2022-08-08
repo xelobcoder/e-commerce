@@ -10,6 +10,7 @@ function ProductForm({ catdata }) {
   const [description, setDescription] = useState('')
   const [category, setCategory] = useState('')
   const [image, setImage] = useState([])
+  const [features, setFeatures] = useState('');
   const [slug, setslug] = useState('')
   const [quantity, setQuantity] = useState('')
   const [cat, setCat] = useState([])
@@ -37,7 +38,7 @@ function ProductForm({ catdata }) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    let data = { name, price, description, category, slug, quantity }
+    let data = { name, price, description, category, slug, quantity,features }
     axios
       .post('http://localhost:3000/api/addproduct', { data })
       .then((res) => {
@@ -53,7 +54,7 @@ function ProductForm({ catdata }) {
           fetch('http://localhost:3000/api/image', {
             method: 'POST',
             headers: {
-              'Accept' : 'application/json'
+              'Accept': 'application/json'
             },
             body: formData,
           })
@@ -87,7 +88,6 @@ function ProductForm({ catdata }) {
       }
 
       reader.readAsDataURL(file.files[0]);
-      console.log(image)
     }, false);
 
 
@@ -176,8 +176,17 @@ function ProductForm({ catdata }) {
                 onChange={(e) => handleChange(e, setDescription)}
               ></textarea>
             </div>
+
           </form>
           <form className={style.form}>
+            <div className={style.formrow}>
+              <label>product features</label>
+              <textarea
+                name="productfeatures"
+                value={features}
+                onChange={(e) => handleChange(e, setFeatures)}
+              ></textarea>
+            </div>
             <div className={style.formrow} >
               <label>product image</label>
               {imageviewoff ? imageWrapper() : <Image id='imagePreview' src={image} alt="product image" width={200} height={300} />}
