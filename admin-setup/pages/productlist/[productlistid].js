@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useEffect, useState, useRef } from 'react';
 import ProductTop from '../../components/productlist/ProductTop';
 import Description from '../../components/productlist/description';
+import ImagesAndAdd from '../../components/productlist/images';
+
 
 function ProductId() {
     const query = useRouter().query.productlistid;
@@ -48,7 +50,10 @@ function ProductId() {
                                 viewimage={handleImageClick} id={query} w='50%' h={400} alt={productdata[0]['description']} />
                         </div>
                         <div>
-                            <Description features={productdata[0]['features']} description={productdata[0]['description']}/>
+                            <Description features={productdata[0]['features']} description={productdata[0]['description']} />
+                        </div>
+                        <div>
+                            <ImagesAndAdd  path={`http://localhost:3000/api/image?id=${productdata[0].id}`}/> 
                         </div>
                     </>
                 )
