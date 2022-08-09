@@ -27,6 +27,11 @@ body {
   margin-top: 20px;
 }
 
+.preview-btns{
+  display: flex;
+  justify-content: flex-end;
+}
+
 .dropdown > input{
   margin: 0;
   padding: 0;
