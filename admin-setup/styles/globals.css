@@ -11,6 +11,44 @@ body {
   background-color: #fff;
 
 }
+.dropdown{
+  border: 2px dashed rgba(0, 0, 255, 0.252);
+  background-color: rgba(245, 245, 245, 0.382);
+  color: grey;
+  border-radius: 2px;
+  height: 20vh;
+  width: 100%;
+  margin-bottom: 20px;
+  cursor: pointer;
+  outline: 2px solid transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.dropdown > input{
+  margin: 0;
+  padding: 0;
+  visibility: hidden;
+}
+.dropdown > .items {
+  margin-left: -30%;
+  margin-top: -3%;
+}
+
+.dropdown > .items > i {
+  font-size: 80px;
+}
+
+.dropdown > .items > .text{
+  margin-top: -30px;
+  margin-left: -50px;
+}
+
+.dropdown > .items > .text::first-letter{
+  text-transform: uppercase;
+}
 
 
 .top-panel-side{

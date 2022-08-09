@@ -4,6 +4,8 @@ import { useEffect, useState, useRef } from 'react';
 import ProductTop from '../../components/productlist/ProductTop';
 import Description from '../../components/productlist/description';
 import ImagesAndAdd from '../../components/productlist/images';
+import ImagesScroll from './imagesScroll';
+import Upload from './upload';
 
 
 function ProductId() {
@@ -21,7 +23,6 @@ function ProductId() {
             if (!dataRef.current) {
                 dataRef.current = true;
                 fetchproduct().then(data => {
-                    console.log(data)
                     setProductdata(data)
                 }).catch(err => {
                     console.log(err)
@@ -53,7 +54,9 @@ function ProductId() {
                             <Description features={productdata[0]['features']} description={productdata[0]['description']} />
                         </div>
                         <div>
-                            <ImagesAndAdd  path={`http://localhost:3000/api/image?id=${productdata[0].id}`}/> 
+                            <ImagesAndAdd path={`http://localhost:3000/api/image?id=${productdata[0].id}`} />
+                            {/* <ImagesScroll/> */}
+                            <Upload/>
                         </div>
                     </>
                 )

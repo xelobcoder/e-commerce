@@ -65,8 +65,6 @@ features.post = (request, response) => {
         // convert the images to array
         let imagesArray = features.objectify(images);
 
-
-
         connection.query('INSERT INTO featureimages (PRODUCT_ID,IMAGES) VALUES ?',
             [product_id, imagesArray],
             (err, result) => {
